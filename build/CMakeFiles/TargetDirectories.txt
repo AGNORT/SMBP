@@ -1,0 +1,3 @@
+/mnt/c/Users/Daniel/Ubuntu/SMBP/build/CMakeFiles/SMKMP.dir
+/mnt/c/Users/Daniel/Ubuntu/SMBP/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Daniel/Ubuntu/SMBP/build/CMakeFiles/rebuild_cache.dir
