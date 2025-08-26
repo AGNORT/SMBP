@@ -51,22 +51,22 @@ int compare_item_index_descending(const void* a, const void* b) {
 	double diff = ((ItemIndex*)a)->sum_p_ab - ((ItemIndex*)b)->sum_p_ab;
 	return (diff > 0) - (diff < 0);
 }
-// instance data������,�Ӵ�С����
+// instance data
 void sort_instance_by_p_ab(Instance& preInstances, ItemIndex*& indices) {
 	size_t n = preInstances.n_items;
 	indices = (ItemIndex*)malloc(n * sizeof(ItemIndex));
 
-	// ��ʼ����������
+	
 	for (size_t i = 0; i < n; ++i) {
 		indices[i].index = i;
 		indices[i].sum_p_ab = preInstances.p_ptr[i] / (preInstances.a_ptr[i] + sqrt(preInstances.b_ptr[i]));
 		//indicesRec[i].sum_p_ab = 1 / (preInstances.a_ptr[i] + sqrt(preInstances.b_ptr[i]));
 	}
 
-	// ����
+	
 	qsort(indices, n, sizeof(ItemIndex), compare_item_index_ab);
 
-	// �����µ����鲢�������������
+	
 	double* new_a = (double*)malloc(n * sizeof(double));
 	double* new_b = (double*)malloc(n * sizeof(double));
 	double* new_p = (double*)malloc(n * sizeof(double));
@@ -80,7 +80,7 @@ void sort_instance_by_p_ab(Instance& preInstances, ItemIndex*& indices) {
 		new_pw[i] = preInstances.p_weight[idx];
 	}
 
-	// �滻ԭʼָ��
+	
 	free(preInstances.a_ptr);
 	free(preInstances.b_ptr);
 	free(preInstances.p_ptr);
@@ -90,21 +90,18 @@ void sort_instance_by_p_ab(Instance& preInstances, ItemIndex*& indices) {
 	preInstances.p_ptr = new_p;
 	preInstances.p_weight = new_pw;
 }
-// instance data������,����profit�Ӵ�С����
+// instance data
 void sort_instance_by_profit(Instance& instance) {
 	size_t n = instance.n_items;
 	ItemIndex* indices = (ItemIndex*)malloc(n * sizeof(ItemIndex));
 
-	// ��ʼ����������
 	for (size_t i = 0; i < n; i++) {
 		indices[i].index = i;
 		indices[i].sum_p_ab = instance.p_ptr[i];
 	}
 
-	// ����
 	qsort(indices, n, sizeof(ItemIndex), compare_item_index_prt);
 
-	// �����µ����鲢�������������
 	double* new_a = (double*)malloc(n * sizeof(double));
 	double* new_b = (double*)malloc(n * sizeof(double));
 	double* new_p = (double*)malloc(n * sizeof(double));
@@ -118,7 +115,6 @@ void sort_instance_by_profit(Instance& instance) {
 		new_pw[i] = instance.p_weight[idx];
 	}
 
-	// �滻ԭʼָ��
 	instance.a_ptr = new_a;
 	instance.b_ptr = new_b;
 	instance.p_ptr = new_p;

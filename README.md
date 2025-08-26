@@ -49,7 +49,7 @@ This will generate the executable `SMKMP` in the `build` directory. Since we use
 -i   <file>   # input .txt file (mandatory)
 -o   <file>   # output .txt file (mandatory)
 -p   <SMKP | SMBP>  # problem type (mandatory)
--m   <DP | BPC | Gurobi>   # solution method (optional, default: DP for SMKP, BPC for SMBP)
+-m   <Gurobi>   # solution method (optional, default: DP for SMKP, BPC for SMBP)
 -a   <ULA-VD | ULA-FD | LLA-VD | LLA-FD>  # algorithm combinations for SMBP (optional, default: ULA-VD)
 -S            # toggle SR3 inequalities (optional, default: use SR3; include flag to disable)
 -D            # toggle DIs (optional, default: not used; include flag to enable)
