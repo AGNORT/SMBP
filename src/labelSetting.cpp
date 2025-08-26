@@ -13,6 +13,7 @@ int secondDim = 0;								//the second dimension of the bucket
 double g_bestLB = 0;								//the best lower bound		
 int g_secondDimDiv = 1;							//the divisor for second dimension of the bucket
 double g_smallest_bDiva = 1e10;					//the smallest ratio of a/b for the present instance	
+bool g_solveKnapsack = false;					//if solve the knapsack problem
 
 vector<double> g_profitRec;						//the profit record from each item
 
@@ -945,7 +946,7 @@ void LabelSettingHeuristic(
 			}
 			thisNonDominatedLabel += (*newExtended)[sndBktIdx].size();
 			//use the present best dual variable to update
-			if (!(*newExtended)[sndBktIdx].empty()) {
+			if (!g_solveKnapsack && !(*newExtended)[sndBktIdx].empty()) {
 				if ((*newExtended)[sndBktIdx].begin()->first > g_bestLB) {
 					KnapsackSol preSol;
 					preSol.bestLab = new MyLabel((*newExtended)[sndBktIdx].begin()->second);
@@ -1091,6 +1092,7 @@ bool TestSolution(Instance& preInstance, vector<int>& sol_items) {
 
 //design the labelsetting algorithm to solve the submodular knapsack problem
 int LabelSettingSolveKnapsack(Args& args) {
+	g_solveKnapsack = true;
 	auto startTime = chrono::high_resolution_clock::now();
 	/*read g_instance*/
 	g_instance = { 0 };

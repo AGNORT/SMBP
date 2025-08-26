@@ -22,9 +22,12 @@ int parse_args(Args *args, int argc, char **argv) {
 
     args->prog_name = argv[0];
     args->direct_rho = false;
+    args->method = "MyMethod";
+	args->SR3 = true;
+	args->DIs = false;
 
     char ch;
-    while ((ch = getopt(argc, argv, "i:o:c:d")) != -1) {
+    while ((ch = getopt(argc, argv, "i:o:p:m:a:SDr")) != -1) {
         switch (ch) {
         case 'i':
             args->input_file = optarg;
@@ -32,10 +35,22 @@ int parse_args(Args *args, int argc, char **argv) {
         case 'o':
             args->output_file = optarg;
             break;
-        case 'c':
-            args->config_file = optarg;
+        case 'p':
+            args->problem_type = optarg;
+			break;
+        case 'm':
+            args->method = optarg;
+			break;
+        case 'a':
+            args->algoCombination = optarg;
+			break;
+        case 'S':
+            args->SR3 = false;
             break;
-        case 'd':
+        case 'D':
+            args->DIs = true;
+			break;
+        case 'r':
             args->direct_rho = true;
             break;
         case '?':

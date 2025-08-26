@@ -46,6 +46,7 @@ extern int g_secondDimDiv;							//the divisor for second dimension of the bucke
 extern double g_smallest_bDiva;						//the smallest ratio of a/b for the present instance	
 extern int g_dualBoundRoundNum;						//the roundNum when executing the dual bound calculation
 extern int g_maximumTimeDualBound;					//the time limitation for executing the dual bound calculation
+extern bool g_solveKnapsack;						//if solve the knapsack problem
 
 extern Instance g_instance;							//g_instance data				
 
@@ -63,7 +64,6 @@ extern bool g_aInteger;								//remark if parameter a is integer
 extern bool g_errorControl;							//if the error control is enabled
 
 
-// ��������ĸ����ṹ
 typedef struct {
 	size_t index;		//index of items in the orginstances
 	size_t pos;			//index of deleted items in the g_instances
@@ -248,6 +248,8 @@ extern int g_maxItemNum;						//maximum number of items can be contained in one 
 extern int g_binpackingUB;						//the upper bound of the bin packing problem
 extern int g_upper_lower_dual;					//0 indicates using upper bounds(don't truncating), 1 indicates using lower bounds(truncating dual variables), 2 indicates using original dual variables
 extern int g_dual_bound_parameter;				//0 denote using fixed parameters and 1 denotes using variable parameters
+extern int g_maxNumSR3Comb;						//the maximum number of SR3s to add originally 10000, set to 0 to mask it
+extern int g_maxNumDIs;							//the maximum number of DIs to add, set to 0 means we don't use DIs
 
 
 /*function decleration*/

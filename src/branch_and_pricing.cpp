@@ -25,11 +25,11 @@ bool g_useCompactModel = true;			//if use the compact model to solve the submodu
 
 //SR3 inequalities parameter
 vector<vector<int>> g_allSR3Comb;		//all the candidates of SR3
-int g_maxNumSR3Comb = 0;			//the maximum number of SR3s to add originally 10000, set to 0 to mask it
+int g_maxNumSR3Comb = 10000;			//the maximum number of SR3s to add originally 10000, set to 0 to mask it
 
 //DOI parameters
 map<double, pair<int, unordered_set<int>>> g_DOIsCandidates;			//DOIs candidates
-int g_maxNumDIs = 10000;					//the maximum number of DIs to add, set to 0 means we don't use DIs
+int g_maxNumDIs = 0;					//the maximum number of DIs to add, set to 0 means we don't use DIs
 
 //solution
 vector<Bin*> g_bestSol_binpacking;		//best solution for the bin packing problem
