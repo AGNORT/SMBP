@@ -16,14 +16,14 @@ int main(int argc, char** argv) {
 	if (strcmp(args.problem_type, "SMKP") == 0) {
 		cout << "Solve SMKP use ";
 		if (strcmp(args.method, "MyMethod") == 0) {
+			cout << "DP!" << endl;
 			//call labelsetting algorithm to solve the submodular knapsack problem
 			LabelSettingSolveKnapsack(args);
-			cout << "DP!" << endl;
 		}
 		else{
+			cout << "Gurobi!" << endl;
 			//call the gurobi solver to solve the compact SOCP model of submodular knapsack problem
 			SolveCompactKnapsackModel(args);
-			cout << "Gurobi!" << endl;
 		}
 	}
 	else { //args.problem_type == "SMBP"
