@@ -7,10 +7,10 @@ set(CMAKE_C_STANDARD 17)  # or 11, 17, etc.
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Specify the path of the Gurobi solver
-set(GUROBI_HOME /mnt/c/Users/Daniel/ubuntu/gurobi1201/linux64)
+set(GUROBI_HOME /mnt/c/Users/Daniel/ubuntu/gurobi1201/linux64) #change according to user's own gurobi path
 include_directories(${GUROBI_HOME}/include)
 link_directories(${GUROBI_HOME}/lib)
-set(GRB_LICENSE_FILE /mnt/c/Users/Daniel/ubuntu/gurobi1201/gurobi.lic)
+set(GRB_LICENSE_FILE /mnt/c/Users/Daniel/ubuntu/gurobi1201/gurobi.lic) #chage according to user's own gurobi license
 
 #list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 #set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
