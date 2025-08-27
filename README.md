@@ -2,8 +2,9 @@
 
 # An efficient branch-and-price algorithm for the submodular bin packing problem
 
-This repository accompanies the paper submitted to the [INFORMS Journal on Computing (IJOC)](https://pubsonline.informs.org/journal/ijoc).
- All source code is released under the [MIT License](LICENSE).
+This repository accompanies the paper submitted to the [INFORMS Journal on Computing (IJOC)](https://pubsonline.informs.org/journal/ijoc). All source code is released under the [MIT License](LICENSE).
+
+The software and data in this repository are a snapshot of the software and data that were used in the research reported on the paper *paper DOI link* by Feilong Wang, Filippo Ranza, Alice Raffaele, Roberto Roberti, and Renata Mansini.
 
 ## 1. Citation
 
@@ -16,11 +17,21 @@ BibTeX for citing this snapshot of the repository:
 
 <!-- TODO: Insert BibTeX here -->
 
-## 2. Description
+## 2. Requirements
+
+The algorithms are compiled and executed in a Linux (Ubuntu) environment with **GCC 13.3**, **CMake 3.28**, and **Gurobi 12.0.1**. Please ensure that the following dependencies are installed before compilation:
+
+```bash
+GCC     # version 12 or higher
+CMake   # version 3.21 or higher
+Gurobi  # version 12.0 or higher
+```
+
+## 3. Description
 
 This repository provides the implementation of our algorithms to reproduce the computational results reported in the paper. The software allows users to solve both the **Submodular Knapsack Problem (SMKP)** and the **Submodular Bin Packing Problem (SMBP)**
 
-## 2.1 Building
+## 3.1 Building
 
 The code is designed for **Linux** environments. 
 
@@ -41,7 +52,16 @@ make
 
 This will generate the executable `SMKMP` in the `build` directory. Since we use Gurobi as the commercial solver, the users need to change the path related to the Gurobi solver in the CMakeLists.txt.
 
-## 2.2 Running the Software
+```makefile
+# Set Gurobi paths (modify according to your installation)
+set(GUROBI_HOME /path/to/your/gurobi/library)
+set(GRB_LICENSE_FILE /path/to/your/gurobi/license)
+target_link_libraries(SMKMP PRIVATE gurobi_c++ gurobi120 pthread) # Replace gurobi120 with your installed version (e.g., gurobi110 )version
+```
+
+
+
+## 3.2 Running the Software
 
  The executable requires command-line arguments. There are **8 parameters in total**, three mandatory and five optional:
 
@@ -57,11 +77,11 @@ This will generate the executable `SMKMP` in the `build` directory. Since we use
 
 ```
 
-The "-i", "-o", and "-p" are mandatory parameters, "-m", "-a", "-S", and "-D" are optional parameters, "-r" is necessary for instances from Xu et al.(2023) and useless for other instances.
+The "-i", "-o", and "-p" are mandatory parameters, "-m", "-a", "-S", and "-D" are optional parameters, "-r" is necessary for instances from Xu et al.(2023) [[1]](#ref1) and useless for other instances.
 
-## 2.3 Example Commands
+## 3.3 Example Commands
 
-Solve SMBP (Xu et al., 2023 instances):
+Solve SMBP (Xu et al., 2023 [[1]](#ref1)  instances):
 
 ```bash
 cd build
@@ -111,7 +131,7 @@ cd build
 
 
 
-## 2.4 Example outputs
+## 3.4 Example outputs
 
 **SMKP with DP**
 
@@ -198,3 +218,6 @@ Best Bound: 6
 MIP Gap: 0
 ```
 
+## Reference
+
+<a id="ref1">[1]</a> Xu, L., d'Ambrosio, C., Haddad-Vanier, S., & Traversi, E. (2023). Branch and price for submodular bin packing. *EURO Journal on Computational Optimization*, *11*, 100074. (https://doi.org/10.1016/j.ejco.2023.100074).  
