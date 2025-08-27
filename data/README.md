@@ -15,9 +15,9 @@ All instances share the same format, organized according to the following rules:
   - The confidence level.
 - **Next *n* lines:**
    Each line corresponds to one item and contains three parameters:
-  1. Profit of the item (used only in SMKP),
-  2. Average weight of the item,
-  3. Weight variance of the item.
+  - Profit of the item (used only in SMKP),
+  - Average weight of the item,
+  - Weight variance of the item.
 
 ## Reference
 
