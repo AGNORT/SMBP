@@ -1358,22 +1358,28 @@ int LabelSettingSolveKnapsack(Args& args) {
 		newExtended = new vector<multimap<double, MyLabel*, greater<double>>>(secondDim + 1, multimap<double, MyLabel*, greater<double>>());
 		nonDominatedLabsRec[stage] = thisNonDominatedLabel;
 	}
-
 	//record the best solution
 	auto ite = --(*oldExtended).end();
 	MyLabel* bestLab = nullptr;
 	while (true) {
 		if (!ite->empty()) {
-			bestLab = ite->begin()->second;
-			ite->erase(ite->begin());
-			break;
+			if (bestLab == nullptr)
+				bestLab = ite->begin()->second;
+
+			auto subIte = ite->begin();
+			while (subIte != ite->end()) {
+				KnapsackSol preSol;
+				preSol.bestLab = subIte->second;
+				finalSols.insert({ subIte->second->tolProfit, preSol });
+				subIte = ite->erase(subIte);
+			}
 		}
 		if (ite == (*oldExtended).begin())
 			break;
 		--ite;
 	}
-	string bestItemSet = finalSols.begin()->second.bestItemSet;
-	if (bestLab != nullptr) {
+	string bestItemSet;
+	if (bestLab != nullptr && bestLab->lastItem > 0) {
 		//get the item set
 		vector<int> bestIS;
 		MyLabel* tmpLab = bestLab;
@@ -1383,23 +1389,21 @@ int LabelSettingSolveKnapsack(Args& args) {
 		}
 		sort(bestIS.begin(), bestIS.end());
 		bestItemSet = JoinVector(bestIS);
-
-		//store the best solution
-		KnapsackSol bestSol;
-		bestSol.bestItemSet = bestItemSet;
-		bestSol.bestLab = bestLab;
-		finalSols.insert({ bestLab->tolProfit, bestSol });
-		g_bestLB = max(g_bestLB, finalSols.begin()->first);
+		finalSols.begin()->second.bestItemSet = bestItemSet;
+		//get the item set for all the solutions
+		for (auto& e : finalSols) {
+			if (e.second.bestLab->itemSet.empty())
+				e.second.bestLab->itemSet.resize(g_instance.n_items + removedIndicesRec.size());
+			tmpLab = e.second.bestLab;
+			while (tmpLab->parentLab != nullptr) {
+				e.second.bestLab->itemSet[indicesRec[tmpLab->lastItem].index] = 1;
+				tmpLab = tmpLab->parentLab;
+			}
+		}
+		if (preStages.empty())
+			g_bestLB = max(g_bestLB, finalSols.begin()->first);
 	}
-	if (bestItemSet.empty()) {
-		for (int i = 0; i < finalSols.begin()->second.bestLab->itemSet.size(); ++i)
-			if (finalSols.begin()->second.bestLab->itemSet[i])
-				bestItemSet += to_string(i) + ",";
-	}
-
 	//free space
-	for (auto& e : finalSols)
-		delete e.second.bestLab;
 	for (auto& t : (*oldExtended)) {
 		for (auto& e : t)
 			delete e.second;
@@ -1407,8 +1411,11 @@ int LabelSettingSolveKnapsack(Args& args) {
 	delete oldExtended;
 	delete newExtended;
 	g_dominatedLabel += dominatedOldLabs.size();
-	for (auto& lab : dominatedOldLabs)
-		delete lab;
+	for (auto& t : dominatedOldLabs)
+		delete t;
+	for (auto& e : finalSols)
+		delete e.second.bestLab;
+	
 	free(indicesRec);
 	free(g_instance.a_ptr);
 	free(g_instance.b_ptr);
